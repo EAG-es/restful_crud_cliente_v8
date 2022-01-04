@@ -5,14 +5,14 @@
  */
 package inser.persistence.restful_crud;
 
-import java.io.Serializable;
-import java.math.BigDecimal;
 import javax.persistence.Basic;
 import javax.persistence.Column;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.Lob;
 import javax.persistence.ManyToOne;
+import java.io.Serializable;
+import java.math.BigDecimal;
 
 /**
  *

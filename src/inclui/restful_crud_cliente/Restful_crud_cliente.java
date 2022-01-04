@@ -6,9 +6,7 @@
 package inclui.restful_crud_cliente;
 
 import incli.restful.restful_crud_cliente.rest.Producto;
-import inser.persistence.restful_crud.LinkedList_envuelta;
-import java.util.ArrayList;
-import java.util.List;
+import inser.persistence.restful_crud.LinkedList_Producto;
 
 /**
  *
@@ -26,19 +24,33 @@ public class Restful_crud_cliente {
         Long filas_afectadas_num = null;
         String usuario = "jardineria";
         String contraseña = "2021jardineria";
-        LinkedList_envuelta<Producto> linkedList_envuelta = new LinkedList_envuelta();
-        List<inser.persistence.restful_crud.Producto> productos_lista = new ArrayList();
+        LinkedList_Producto linkedList_envuelta = new LinkedList_Producto();
         try {            
             Producto producto = new Producto ();
-            producto_entidad = producto.find_JSON(inser.persistence.restful_crud.Producto.class
-                    , "1", usuario, contraseña, error);
-            ret = (producto_entidad != null);
+//            producto_entidad = producto.find_JSON(inser.persistence.restful_crud.Producto.class
+//                    , "1", usuario, contraseña, error);
+//            ret = (producto_entidad != null);
             if (ret) {
-                ret = producto.remove("1", usuario, contraseña, error);
-            }
-            if (ret) {
-                ret = producto.create_JSON(producto_entidad, usuario, contraseña, error);
-            }
+                linkedList_envuelta = producto.findLike_descripcion_JSON(linkedList_envuelta.getClass()
+                        , "0", "14", "%de%", usuario, contraseña, error);
+                ret = (linkedList_envuelta != null);
+            }            
+//            if (ret) {
+//                linkedList_envuelta = producto.find_orden_JSON(linkedList_envuelta.getClass()
+//                        , "0", "14", "codigoProducto", "desc", usuario, contraseña, error);
+//                ret = (linkedList_envuelta != null);
+//            }                        
+//            if (ret) {
+//                linkedList_envuelta = producto.findLike_descripcion_orden_JSON(linkedList_envuelta.getClass()
+//                        , "0", "14", "Gracias%", "codigoProducto", "desc", usuario, contraseña, error);
+//                ret = (linkedList_envuelta != null);
+//            }                        
+//            if (ret) {
+//                ret = producto.remove("1", usuario, contraseña, error);
+//            }
+//            if (ret) {
+//                ret = producto.create_JSON(producto_entidad, usuario, contraseña, error);
+//            }
             if (ret) {
                 filas_afectadas_num = producto.countREST(usuario, contraseña, error);
                 ret = (filas_afectadas_num != null);
@@ -49,7 +61,7 @@ public class Restful_crud_cliente {
             if (ret) {
                 linkedList_envuelta = producto.findRange_JSON(linkedList_envuelta.getClass(), "1", "15", usuario, contraseña, error);
                 ret = (linkedList_envuelta != null);
-            }                       
+            }            
             if (ret) {
                 linkedList_envuelta = producto.findAll_JSON(linkedList_envuelta.getClass(), usuario, contraseña, error);
                 ret = (linkedList_envuelta != null);

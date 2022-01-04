@@ -12,7 +12,7 @@ import java.util.LinkedList;
  *
  * @author informatica
  */
-public class LinkedList_envuelta<T> implements Serializable {
-    public LinkedList<T> lista = null;
+public class LinkedList_Producto implements Serializable {
+    public LinkedList<Producto> lista = null;
     
 }
