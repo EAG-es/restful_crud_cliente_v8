@@ -10,7 +10,7 @@ import static inser.persistence.restful_crud.PersistenceConfig.jdbc_contraseña;
 import static inser.persistence.restful_crud.PersistenceConfig.jdbc_usuario;
 import javax.ws.rs.ClientErrorException;
 import javax.ws.rs.client.Client;
-import javax.ws.rs.client.Invocation;
+import javax.ws.rs.client.Invocation.Builder;
 import javax.ws.rs.client.WebTarget;
 import javax.ws.rs.core.MultivaluedHashMap;
 import javax.ws.rs.core.MultivaluedMap;
@@ -58,7 +58,7 @@ public class Producto {
         int status;
         WebTarget resource = webTarget;
         resource = resource.path("count");
-        Invocation.Builder builder = resource.request();
+        Builder builder = resource.request();
         MultivaluedMap<String, Object> multivaluedMap = new MultivaluedHashMap();
         multivaluedMap.add(jdbc_usuario, usuario);
         multivaluedMap.add(jdbc_contraseña, contraseña);
@@ -82,7 +82,7 @@ public class Producto {
         int status;
         WebTarget resource = webTarget;
         resource = resource.path(java.text.MessageFormat.format("{0}", new Object[]{id}));
-        Invocation.Builder builder = resource.request();
+        Builder builder = resource.request();
         MultivaluedMap<String, Object> multivaluedMap = new MultivaluedHashMap();
         multivaluedMap.add(jdbc_usuario, usuario);
         multivaluedMap.add(jdbc_contraseña, contraseña);
@@ -103,7 +103,7 @@ public class Producto {
         int status;
         WebTarget resource = webTarget;
         resource = resource.path(java.text.MessageFormat.format("{0}", new Object[]{id}));
-        Invocation.Builder builder = resource.request();
+        Builder builder = resource.request();
         MultivaluedMap<String, Object> multivaluedMap = new MultivaluedHashMap();
         multivaluedMap.add(jdbc_usuario, usuario);
         multivaluedMap.add(jdbc_contraseña, contraseña);
@@ -126,7 +126,7 @@ public class Producto {
         int status;
         WebTarget resource = webTarget;
         resource = resource.path(java.text.MessageFormat.format("{0}/{1}", new Object[]{from, to}));
-        Invocation.Builder builder = resource.request();
+        Builder builder = resource.request();
         MultivaluedMap<String, Object> multivaluedMap = new MultivaluedHashMap();
         multivaluedMap.add(jdbc_usuario, usuario);
         multivaluedMap.add(jdbc_contraseña, contraseña);
@@ -149,7 +149,7 @@ public class Producto {
         javax.ws.rs.client.Entity entity;
         int status;
         WebTarget resource = webTarget;
-        Invocation.Builder builder = resource.request();
+        Builder builder = resource.request();
         MultivaluedMap<String, Object> multivaluedMap = new MultivaluedHashMap();
         multivaluedMap.add(jdbc_usuario, usuario);
         multivaluedMap.add(jdbc_contraseña, contraseña);
@@ -169,7 +169,80 @@ public class Producto {
         T t = null;
         int status;
         WebTarget resource = webTarget;
-        Invocation.Builder builder = resource.request();
+        Builder builder = resource.request();
+        MultivaluedMap<String, Object> multivaluedMap = new MultivaluedHashMap();
+        multivaluedMap.add(jdbc_usuario, usuario);
+        multivaluedMap.add(jdbc_contraseña, contraseña);
+        builder = builder.headers(multivaluedMap);
+        builder = builder.accept(javax.ws.rs.core.MediaType.APPLICATION_JSON);
+        response = builder.get();
+        status = response.getStatus();
+        if (status < 200 || status >= 300) {
+            error[0] = response.readEntity(String.class);
+            t = null;
+        } else {
+            t = response.readEntity(responseType);
+        }
+        return t;
+    }
+
+    public <T> T findLike_descripcion_JSON(Class<T> responseType, String from, String to, String descripcion, String usuario, String contraseña, String [] error) throws ClientErrorException {
+        Response response;
+        javax.ws.rs.client.Entity entity;
+        T t = null;
+        int status;
+        WebTarget resource = webTarget;
+        resource = resource.path(java.text.MessageFormat.format("{0}/{1}", new Object[]{from, to}));
+        Builder builder = resource.request();
+        MultivaluedMap<String, Object> multivaluedMap = new MultivaluedHashMap();
+        multivaluedMap.add(jdbc_usuario, usuario);
+        multivaluedMap.add(jdbc_contraseña, contraseña);
+        builder = builder.headers(multivaluedMap);
+        builder = builder.accept(javax.ws.rs.core.MediaType.APPLICATION_JSON);
+        entity = javax.ws.rs.client.Entity.entity(descripcion, javax.ws.rs.core.MediaType.APPLICATION_JSON);
+        response = builder.post(entity);
+        status = response.getStatus();
+        if (status < 200 || status >= 300) {
+            error[0] = response.readEntity(String.class);
+            t = null;
+        } else {
+            t = response.readEntity(responseType);
+        }
+        return t;
+    }
+
+    public <T> T findLike_descripcion_orden_JSON(Class<T> responseType, String from, String to, String descripcion, String campo_ordenacion, String asc, String usuario, String contraseña, String [] error) throws ClientErrorException {
+        Response response;
+        javax.ws.rs.client.Entity entity;
+        T t = null;
+        int status;
+        WebTarget resource = webTarget;
+        resource = resource.path(java.text.MessageFormat.format("{0}/{1}/{2}/{3}", new Object[]{from, to, campo_ordenacion, asc}));
+        Builder builder = resource.request();
+        MultivaluedMap<String, Object> multivaluedMap = new MultivaluedHashMap();
+        multivaluedMap.add(jdbc_usuario, usuario);
+        multivaluedMap.add(jdbc_contraseña, contraseña);
+        builder = builder.headers(multivaluedMap);
+        builder = builder.accept(javax.ws.rs.core.MediaType.APPLICATION_JSON);
+        entity = javax.ws.rs.client.Entity.entity(descripcion, javax.ws.rs.core.MediaType.APPLICATION_JSON);
+        response = builder.post(entity);
+        status = response.getStatus();
+        if (status < 200 || status >= 300) {
+            error[0] = response.readEntity(String.class);
+            t = null;
+        } else {
+            t = response.readEntity(responseType);
+        }
+        return t;
+    }
+
+    public <T> T find_orden_JSON(Class<T> responseType, String from, String to, String campo_ordenacion, String asc, String usuario, String contraseña, String [] error) throws ClientErrorException {
+        Response response;
+        T t = null;
+        int status;
+        WebTarget resource = webTarget;
+        resource = resource.path(java.text.MessageFormat.format("{0}/{1}/{2}/{3}", new Object[]{from, to, campo_ordenacion, asc}));
+        Builder builder = resource.request();
         MultivaluedMap<String, Object> multivaluedMap = new MultivaluedHashMap();
         multivaluedMap.add(jdbc_usuario, usuario);
         multivaluedMap.add(jdbc_contraseña, contraseña);
@@ -192,7 +265,7 @@ public class Producto {
         int status;
         WebTarget resource = webTarget;
         resource = resource.path(java.text.MessageFormat.format("{0}", new Object[]{id}));
-        Invocation.Builder builder = resource.request();
+        Builder builder = resource.request();
         MultivaluedMap<String, Object> multivaluedMap = new MultivaluedHashMap();
         multivaluedMap.add(jdbc_usuario, usuario);
         multivaluedMap.add(jdbc_contraseña, contraseña);
